@@ -1,4 +1,5 @@
 #include "Misc.hpp"
+#include "Polynomial.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <cmath>

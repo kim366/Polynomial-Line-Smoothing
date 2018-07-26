@@ -1,5 +1,3 @@
-#pragma once
-
 template<int NumSegments = 50>
 std::array<sf::Vector2f, NumSegments> draw_function_graph(float (*fn)(float),
                                                           sf::Vector2f from_,
