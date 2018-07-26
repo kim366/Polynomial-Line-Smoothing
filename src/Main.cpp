@@ -12,8 +12,8 @@ int main()
     auto graph{draw_function_graph(
         [](float x) -> float {
             using std::pow;
-            // -.2x^2+.4x+3
-            return -.2f * pow(x, 2.f) + .4f * x + 3.f;
+            // f(x) = -50x² + 50x
+            return -50.f * pow(x, 2.f) + 50.f * x;
         },
         {50.f, 200.f},
         {300.f, 200.f})};
