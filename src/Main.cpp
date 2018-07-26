@@ -36,6 +36,15 @@ int main()
         }
 
         window.clear();
+
+        for (auto point_position : graph)
+        {
+            sf::CircleShape point{2.f};
+            point.setPosition(point_position);
+            point.setOrigin(2.f, 2.f);
+            window.draw(point);
+        }
+
         window.display();
     }
 }
