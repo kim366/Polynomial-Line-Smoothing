@@ -3,6 +3,7 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <array>
 #include <ostream>
 #include <vector>
 
@@ -19,3 +20,9 @@ float mag(sf::Vector2f vec_);
 sf::Vector2f unitV(sf::Vector2f vec_);
 float interpolate(float t, float a, float b);
 sf::Vector2f vinterpolate(float t, sf::Vector2f a, sf::Vector2f b);
+template<unsigned NumSegments = 50>
+std::array<sf::Vector2f, NumSegments> draw_function_graph(float (*fn)(float),
+                                                          sf::Vector2f from_,
+                                                          sf::Vector2f to_);
+
+#include "Misc.inl"
