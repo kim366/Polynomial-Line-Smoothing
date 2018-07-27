@@ -25,5 +25,15 @@ Polynomial<Order - 1, ParamT>
     compute_derivative(const Polynomial<Order, ParamT>& polyn_,
                        int derivative_order_)
 {
-    return {};
+    using DerivedPolynT = Polynomial<Order - 1, ParamT>;
+
+    typename DerivedPolynT::ParamArrT derived_params;
+
+    for (int param_idx = 0; param_idx < Order; ++param_idx)
+    {
+        derived_params[param_idx] =
+            (Order - param_idx) * polyn_.getParam(param_idx);
+    }
+
+    return {derived_params};
 }
