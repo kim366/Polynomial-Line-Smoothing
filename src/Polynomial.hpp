@@ -9,7 +9,7 @@ public:
     template<typename... ParamTs>
     Polynomial(ParamTs... params_);
 
-    ParamT operator()(ParamT x);
+    ParamT operator()(ParamT value_);
 
 private:
     std::array<ParamT, Order + 1> _params;

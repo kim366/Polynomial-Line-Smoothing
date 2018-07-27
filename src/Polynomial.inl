@@ -1,3 +1,5 @@
+#include <cmath>
+
 template<unsigned Order, typename ParamT>
 template<typename... ParamTs>
 Polynomial<Order, ParamT>::Polynomial(ParamTs... params_) : _params{params_...}
@@ -7,7 +9,13 @@ Polynomial<Order, ParamT>::Polynomial(ParamTs... params_) : _params{params_...}
 }
 
 template<unsigned Order, typename ParamT>
-ParamT Polynomial<Order, ParamT>::operator()(ParamT x)
+ParamT Polynomial<Order, ParamT>::operator()(ParamT value_)
 {
-    return x;
+    ParamT sum{0};
+
+    for (int power{Order}; power >= 0; --power)
+        sum += _params[Order - power]
+               * static_cast<ParamT>(std::pow(value_, power));
+
+    return sum;
 }
