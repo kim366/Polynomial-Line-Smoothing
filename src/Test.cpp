@@ -10,3 +10,11 @@ TEST_CASE("Polynomials are computed correctly.")
     CHECK(f(2) == 5.f);
     CHECK(f(-4) == 17.f);
 }
+
+TEST_CASE("1st order polynomial derivatives work.")
+{
+    Polynomial<3> f{-5.f, 3.f, 7.f, -4.f};
+    Polynomial<2> dfdx{compute_derivative(f)};
+
+    CHECK(dfdx.getParams() == decltype(dfdx.getParams()){15.f, 6.f, 7.f});
+}

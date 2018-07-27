@@ -19,3 +19,11 @@ ParamT Polynomial<Order, ParamT>::operator()(ParamT value_)
 
     return sum;
 }
+
+template<unsigned Order, typename ParamT>
+Polynomial<Order - 1, ParamT>
+    compute_derivative(const Polynomial<Order, ParamT>& polyn_,
+                       int derivative_order_)
+{
+    return {};
+}
