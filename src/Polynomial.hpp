@@ -1,13 +1,16 @@
 #pragma once
 
-template<typename ParamT, int Degree>
+#include <array>
+
+template<unsigned Order, typename ParamT = float>
 class Polynomial
 {
 public:
-    Polynomial(std::initializer_list<ParamT> params_);
+    template<typename... ParamTs>
+    Polynomial(ParamTs... params_);
 
 private:
-    std::array<ParamT, Degree> _params;
+    std::array<ParamT, Order + 1> _params;
 };
 
 #include "Polynomial.inl"
