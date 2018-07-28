@@ -20,9 +20,8 @@ private:
     ParamArrT _params;
 };
 
-template<unsigned Order, typename ParamT>
-Polynomial<Order - 1, ParamT>
-    compute_derivative(const Polynomial<Order, ParamT>& polyn_,
-                       int derivative_order_ = 1);
+template<unsigned Order, typename ParamT, int DerivativeOrder = 1>
+Polynomial<Order - DerivativeOrder, ParamT>
+    compute_derivative(const Polynomial<Order, ParamT>& polyn_);
 
 #include "Polynomial.inl"

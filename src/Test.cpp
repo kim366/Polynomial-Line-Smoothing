@@ -22,7 +22,7 @@ TEST_CASE("1st order polynomial derivatives work.")
 TEST_CASE("Higher order polynomial derivatives work.")
 {
     Polynomial<3> f{2.f, 7.f, 1.f, 3.f};
-    Polynomial<1> dfdx2{compute_derivative(f, 2)};
+    Polynomial<1> dfdx2{compute_derivative<3, float, 2>(f)};
 
     CHECK(dfdx2.getParams() == decltype(dfdx2.getParams()){2.f, 14.f});
 }
