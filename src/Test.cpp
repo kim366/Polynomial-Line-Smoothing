@@ -15,7 +15,7 @@ TEST_CASE("Polynomials are computed correctly.")
 TEST_CASE("1st order polynomial derivatives work.")
 {
     Polynomial<3> f{-5.f, 3.f, 7.f, -4.f};
-    Polynomial<2> dfdx{COMPUTE_DERIVATIVE(f)};
+    Polynomial<2> dfdx{compute_derivative(f)};
 
     CHECK(dfdx.getParams() == decltype(dfdx.getParams()){-15.f, 6.f, 7.f});
 }
@@ -23,7 +23,7 @@ TEST_CASE("1st order polynomial derivatives work.")
 TEST_CASE("Higher order polynomial derivatives work.")
 {
     Polynomial<3> f{2.f, 7.f, 1.f, 3.f};
-    Polynomial<1> dfdx2{COMPUTE_DERIVATIVE_ORDER(f, 2)};
+    Polynomial<1> dfdx2{compute_derivative(f, 2)};
 
-    CHECK(dfdx2.getParams() == decltype(dfdx2.getParams()){2.f, 14.f});
+    CHECK(dfdx2.getParams() == decltype(dfdx2.getParams()){12.f, 14.f});
 }
