@@ -32,8 +32,8 @@ struct comp_deriv_impl
                                         * polyn_.getParam(param_idx);
 
         const DerivedPolynT derived_polyn{std::move(derived_params)};
-        return comp_deriv_impl<Order, ParamT, DerivativeOrder - 1>::comp_deriv(
-            derived_polyn);
+        return comp_deriv_impl<Order - 1, ParamT, DerivativeOrder - 1>::
+            comp_deriv(derived_polyn);
     }
 };
 
