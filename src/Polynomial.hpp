@@ -7,6 +7,8 @@ class Polynomial
 {
 public:
     using ParamArrT = std::array<ParamT, Order + 1>;
+    static const auto PolynOrder{Order};
+    using PolynParam = ParamT;
 
     template<typename... ParamTs>
     Polynomial(ParamTs... params_);

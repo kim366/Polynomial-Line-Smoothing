@@ -2,10 +2,14 @@
 
 #include "Polynomial.hpp"
 
-// template<unsigned Order, typename ParamT, int DerivativeOrder = 1>
-// compute_derivative
+#define COMPUTE_DERIVATIVE_ORDER(polyn, deriv_order)                           \
+    comp_deriv_impl<decltype(polyn)::PolynOrder,                               \
+                    decltype(polyn)::PolynParam,                               \
+                    deriv_order>::compute_derivative(polyn)
 
-template<unsigned Order, typename ParamT, int DerivativeOrder = 1>
+#define COMPUTE_DERIVATIVE(polyn) COMPUTE_DERIVATIVE_ORDER(polyn, 1)
+
+template<unsigned Order, typename ParamT, int DerivativeOrder>
 struct comp_deriv_impl
 {
     static Polynomial<Order - DerivativeOrder, ParamT>
