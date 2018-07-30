@@ -30,7 +30,7 @@ public:
     {
     }
 
-    ParamT operator()(ParamT value_);
+    ParamT operator()(ParamT x_);
 
     const auto& getParams() const { return _params; }
     ParamT getParam(unsigned index_) const { return _params[index_]; }

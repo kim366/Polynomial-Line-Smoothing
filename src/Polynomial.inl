@@ -9,13 +9,13 @@ Polynomial<Order, ParamT>::Polynomial(ParamTs... params_) : _params{params_...}
 }
 
 template<unsigned Order, typename ParamT>
-ParamT Polynomial<Order, ParamT>::operator()(ParamT value_)
+ParamT Polynomial<Order, ParamT>::operator()(ParamT x_)
 {
     ParamT sum{0};
 
     for (int power{Order}; power >= 0; --power)
-        sum += _params[Order - power]
-               * static_cast<ParamT>(std::pow(value_, power));
+        sum +=
+            _params[Order - power] * static_cast<ParamT>(std::pow(x_, power));
 
     return sum;
 }
