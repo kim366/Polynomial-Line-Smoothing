@@ -2,14 +2,7 @@
 
 #include "Polynomial.hpp"
 
-template<unsigned Order, typename ParamT>
-Polynomial<Order - 1, ParamT>
-    compute_derivative(const Polynomial<Order, ParamT>& polyn_)
-{
-    return compute_derivative<1>(polyn_);
-}
-
-template<int DerivativeOrder,
+template<int DerivativeOrder = 1,
          unsigned Order,
          typename ParamT,
          typename std::enable_if_t<DerivativeOrder != 0>* = {}>
@@ -28,7 +21,7 @@ Polynomial<Order - DerivativeOrder, ParamT>
     return compute_derivative<DerivativeOrder - 1>(derived_polyn);
 }
 
-template<int DerivativeOrder,
+template<int DerivativeOrder = 1,
          unsigned Order,
          typename ParamT,
          typename std::enable_if_t<DerivativeOrder == 0>* = {}>
