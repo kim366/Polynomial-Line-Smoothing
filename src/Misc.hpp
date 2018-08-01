@@ -18,7 +18,8 @@ void draw_lines(const ContainerT& points_,
                 sf::Color color_ = sf::Color::White);
 float dot(sf::Vector2f first_, sf::Vector2f second_);
 float mag(sf::Vector2f vec_);
-sf::Vector2f unitV(sf::Vector2f vec_);
+sf::Vector2f normal(sf::Vector2f vec_);
+sf::Vector2f unitv(sf::Vector2f vec_);
 float interpolate(float t, float a, float b);
 sf::Vector2f interpolate(float t, sf::Vector2f a, sf::Vector2f b);
 template<int NumSegments = 50, typename PolynomialT>

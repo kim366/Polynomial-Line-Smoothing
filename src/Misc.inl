@@ -4,6 +4,8 @@ template<int NumSegments = 50, typename PolynomialT>
 std::array<sf::Vector2f, NumSegments>
     draw_function_graph(PolynomialT f_, sf::Vector2f from_, sf::Vector2f to_)
 {
+    const sf::Vector2f unit_normal{unitv(normal(to_ - from_))};
+
     std::array<sf::Vector2f, NumSegments> graph;
     const float x_axis_mag{mag(from_ - to_)};
 
@@ -17,9 +19,8 @@ std::array<sf::Vector2f, NumSegments>
     for (int point_idx{0}; point_idx < NumSegments; ++point_idx)
     {
         const float progress{static_cast<float>(point_idx) / (NumSegments - 1)};
-        graph[point_idx].x = interpolate(progress, from_.x, to_.x);
-        graph[point_idx].y =
-            interpolate(progress, from_.y, to_.y) - f_(progress);
+        graph[point_idx] =
+            interpolate(progress, from_, to_) - sf::Vector2f{0.f, f_(progress)};
     }
 
     return graph;

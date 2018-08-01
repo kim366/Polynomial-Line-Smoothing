@@ -34,7 +34,7 @@ sf::Vector2f put_point_on_line(sf::Vector2f point,
 {
     const sf::Vector2f line_seg{line_point1 - line_point0};
     return line_point1
-           + unitV(line_seg) * dot(unitV(line_seg), point - line_point1);
+           + unitv(line_seg) * dot(unitv(line_seg), point - line_point1);
 }
 
 float interpolate(float t, float a, float b)
@@ -45,4 +45,9 @@ float interpolate(float t, float a, float b)
 sf::Vector2f interpolate(float t, sf::Vector2f a, sf::Vector2f b)
 {
     return {interpolate(t, a.x, b.x), interpolate(t, a.y, b.y)};
+}
+
+sf::Vector2f normal(sf::Vector2f vec_)
+{
+    return {-vec_.y, vec_.x};
 }
