@@ -31,6 +31,18 @@ int main()
                     static_cast<float>(event.mouseButton.y)};
 
                 points.push_back(mpos);
+
+                if (points.size() >= 2)
+                {
+                    for (unsigned point_idx = 1; point_idx < points.size();
+                         ++point_idx)
+                    {
+                        graphs.emplace_back(draw_function_graph(
+                            Polynomial<3>{2.f * h, -3.f * h, h, 0.f},
+                            *--points.end(),
+                            *----points.end()));
+                    }
+                }
             }
 
             else if (event.type == sf::Event::KeyPressed
@@ -41,15 +53,6 @@ int main()
                      && event.key.code == sf::Keyboard::Down)
                 --h;
         }
-
-        if (points.size() >= 2)
-            for (unsigned point_idx = 1; point_idx < points.size(); ++point_idx)
-            {
-                graphs.emplace_back(draw_function_graph(
-                    Polynomial<3>{2.f * h, -3.f * h, h, 0.f},
-                    points[point_idx - 1],
-                    points[point_idx]));
-            }
 
         window.clear();
 
