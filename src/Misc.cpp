@@ -23,7 +23,7 @@ float mag(sf::Vector2f vec_)
     return std::hypot(vec_.x, vec_.y);
 }
 
-sf::Vector2f unitV(sf::Vector2f vec_)
+sf::Vector2f unitv(sf::Vector2f vec_)
 {
     return vec_ / mag(vec_);
 }
