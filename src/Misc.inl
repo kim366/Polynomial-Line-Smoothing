@@ -35,7 +35,7 @@ std::array<sf::Vector2f, NumSegments>
 template<int NumSegments = 50, typename PolynomialT>
 std::vector<sf::Vector2f>
     draw_continuous_function_graphs(PolynomialT f_,
-                                    std::vector<sf::Vector2f> points_)
+                                    const std::vector<sf::Vector2f>& points_)
 {
     return {};
 }

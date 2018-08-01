@@ -12,7 +12,7 @@ int main()
 
     float h{1};
     std::vector<sf::Vector2f> points;
-    std::vector<std::array<sf::Vector2f, 50>> graphs;
+    std::vector<sf::Vector2f> smooth_points;
 
     while (true)
     {
@@ -32,13 +32,8 @@ int main()
 
                 points.push_back(mpos);
 
-                if (points.size() >= 2)
-                {
-                    graphs.emplace_back(draw_function_graph(
-                        Polynomial<3>{2.f * h, -3.f * h, h, 0.f},
-                        *--points.end(),
-                        *----points.end()));
-                }
+                smooth_points = draw_continuous_function_graphs(
+                    Polynomial<3>{2.f * h, -3.f * h, h, 0.f}, points);
             }
 
             else if (event.type == sf::Event::KeyPressed
