@@ -16,7 +16,7 @@ std::array<sf::Vector2f, NumSegments>
 
     for (int point_idx{0}; point_idx < NumSegments; ++point_idx)
     {
-        const float progress{static_cast<float>(point_idx) / NumSegments};
+        const float progress{static_cast<float>(point_idx) / (NumSegments - 1)};
         graph[point_idx].x = interpolate(progress, from_.x, to_.x);
         graph[point_idx].y =
             interpolate(progress, from_.y, to_.y) - f_(progress);
