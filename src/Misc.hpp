@@ -25,8 +25,7 @@ sf::Vector2f interpolate(float t, sf::Vector2f a, sf::Vector2f b);
 template<int NumSegments = 50, typename PolynomialT>
 std::array<sf::Vector2f, NumSegments>
     draw_function_graph(PolynomialT f_, sf::Vector2f from_, sf::Vector2f to_);
-template<int NumSegments = 50, typename PolynomialT>
-std::vector<sf::Vector2f>
-    draw_continuous_function_graphs(PolynomialT f_,
-                                    const std::vector<sf::Vector2f>& points_);
+template<int NumSegments = 50>
+std::vector<std::array<sf::Vector2f, NumSegments>>
+    smooth_lines(const std::vector<sf::Vector2f>& points_);
 #include "Misc.inl"

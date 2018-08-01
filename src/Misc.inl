@@ -1,3 +1,5 @@
+#include "Polynomial.hpp"
+
 #include <iostream>
 
 template<int NumSegments = 50, typename PolynomialT>
@@ -32,12 +34,22 @@ std::array<sf::Vector2f, NumSegments>
     return graph;
 }
 
-template<int NumSegments = 50, typename PolynomialT>
-std::vector<sf::Vector2f>
-    draw_continuous_function_graphs(PolynomialT f_,
-                                    const std::vector<sf::Vector2f>& points_)
+template<int NumSegments = 50>
+std::vector<std::array<sf::Vector2f, NumSegments>>
+    smooth_lines(const std::vector<sf::Vector2f>& points_)
 {
-    return {};
+    float h{1};
+    std::vector<std::array<sf::Vector2f, NumSegments>> graphs;
+
+    for (unsigned point_idx = 1; point_idx < points_.size(); ++point_idx)
+    {
+        graphs.emplace_back(
+            draw_function_graph(Polynomial<3>{2.f * h, -3.f * h, h, 0.f},
+                                points_[point_idx - 1],
+                                points_[point_idx]));
+    }
+
+    return graphs;
 }
 
 template<typename ContainerT>
