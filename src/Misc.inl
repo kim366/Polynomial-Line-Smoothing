@@ -32,6 +32,14 @@ std::array<sf::Vector2f, NumSegments>
     return graph;
 }
 
+template<int NumSegments = 50, typename PolynomialT>
+std::vector<sf::Vector2f>
+    draw_continuous_function_graphs(PolynomialT f_,
+                                    std::vector<sf::Vector2f> points_)
+{
+    return {};
+}
+
 template<typename ContainerT>
 void draw_lines(const ContainerT& points_,
                 sf::RenderTarget& target_,
