@@ -11,7 +11,8 @@ int main()
         {350, 350}, "Draw Function Graph", sf::Style::Default, aa_8x);
 
     float h{1};
-    const std::array<sf::Vector2f, 2> points{{{50.f, 200.f}, {50.f, 450.f}}};
+    std::vector<sf::Vector2f> points;
+    std::vector<std::array<sf::Vector2f, 50>> graphs;
 
     while (true)
     {
@@ -25,8 +26,11 @@ int main()
 
             if (event.type == sf::Event::MouseButtonPressed)
             {
-                // sf::Vector2f mpos{static_cast<float>(event.mouseButton.x)
-                // static_cast<float>(event.mouseButton.y)};
+                const sf::Vector2f mpos{
+                    static_cast<float>(event.mouseButton.x),
+                    static_cast<float>(event.mouseButton.y)};
+
+                points.push_back(mpos);
             }
 
             else if (event.type == sf::Event::KeyPressed
@@ -38,13 +42,20 @@ int main()
                 --h;
         }
 
-        const auto graph{draw_function_graph(
-            Polynomial<3>{2.f * h, -3.f * h, h, 0.f}, points[0], points[1])};
+        if (points.size() >= 2)
+            for (unsigned point_idx = 1; point_idx < points.size(); ++point_idx)
+            {
+                graphs.emplace_back(draw_function_graph(
+                    Polynomial<3>{2.f * h, -3.f * h, h, 0.f},
+                    points[point_idx - 1],
+                    points[point_idx]));
+            }
 
         window.clear();
 
         draw_lines(points, window, sf::Color::Red);
-        draw_lines(graph, window);
+        for (const auto& graph : graphs)
+            draw_lines(graph, window);
 
         window.display();
     }
