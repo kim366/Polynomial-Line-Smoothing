@@ -34,14 +34,10 @@ int main()
 
                 if (points.size() >= 2)
                 {
-                    for (unsigned point_idx = 1; point_idx < points.size();
-                         ++point_idx)
-                    {
-                        graphs.emplace_back(draw_function_graph(
-                            Polynomial<3>{2.f * h, -3.f * h, h, 0.f},
-                            *--points.end(),
-                            *----points.end()));
-                    }
+                    graphs.emplace_back(draw_function_graph(
+                        Polynomial<3>{2.f * h, -3.f * h, h, 0.f},
+                        *--points.end(),
+                        *----points.end()));
                 }
             }
 
