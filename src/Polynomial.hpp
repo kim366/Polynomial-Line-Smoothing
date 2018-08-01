@@ -30,10 +30,13 @@ public:
     {
     }
 
-    ParamT operator()(ParamT x_);
+    ParamT operator()(ParamT x_) const;
 
     const auto& getParams() const { return _params; }
     ParamT getParam(unsigned index_) const { return _params[index_]; }
+
+    void setParams(const ParamArrT& params_) { _params = params_; }
+    void setParams(ParamArrT&& params_) { _params = std::move(params_); }
 
 private:
     ParamArrT _params;

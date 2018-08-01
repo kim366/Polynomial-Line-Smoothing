@@ -10,15 +10,10 @@ int main()
     sf::RenderWindow window(
         {350, 350}, "Draw Function Graph", sf::Style::Default, aa_8x);
 
-    auto graph{draw_function_graph(
-        [](float x) -> float {
-            float h{200};
-            using std::pow;
-            // return -h * pow(x, 2.f) + h * x;
-            return 2.f * h * pow(x, 3.f) - 3.f * h * pow(x, 2.f) + h * x;
-        },
-        {50.f, 200.f},
-        {300.f, 200.f})};
+    const float h{1};
+    auto graph{draw_function_graph(Polynomial<3>{2.f * h, -3.f * h, h, 0.f},
+                                   {50.f, 200.f},
+                                   {300.f, 200.f})};
 
     while (true)
     {
@@ -46,6 +41,8 @@ int main()
             point.setOrigin(2.f, 2.f);
             window.draw(point);
         }
+
+        draw_lines({{50.f, 200.f}, {300.f, 200.f}}, window, sf::Color::Red);
 
         window.display();
     }

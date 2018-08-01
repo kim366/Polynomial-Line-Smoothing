@@ -9,7 +9,7 @@ Polynomial<Order, ParamT>::Polynomial(ParamTs... params_) : _params{params_...}
 }
 
 template<unsigned Order, typename ParamT>
-ParamT Polynomial<Order, ParamT>::operator()(ParamT x_)
+ParamT Polynomial<Order, ParamT>::operator()(ParamT x_) const
 {
     ParamT sum{0};
 
