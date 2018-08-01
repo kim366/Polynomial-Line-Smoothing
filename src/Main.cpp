@@ -11,7 +11,7 @@ int main()
         {350, 350}, "Draw Function Graph", sf::Style::Default, aa_8x);
 
     const float h{1};
-    const std::array<sf::Vector2f, 2> points{{{50.f, 200.f}, {300.f, 400.f}}};
+    const std::array<sf::Vector2f, 2> points{{{50.f, 200.f}, {50.f, 450.f}}};
     auto graph{draw_function_graph(
         Polynomial<3>{2.f * h, -3.f * h, h, 0.f}, points[0], points[1])};
 

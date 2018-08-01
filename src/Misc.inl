@@ -4,10 +4,13 @@ template<int NumSegments = 50, typename PolynomialT>
 std::array<sf::Vector2f, NumSegments>
     draw_function_graph(PolynomialT f_, sf::Vector2f from_, sf::Vector2f to_)
 {
-    const sf::Vector2f unit_normal{unitv(normal(to_ - from_))};
+    const sf::Vector2f direction{to_ - from_},
+        unit_normal{unitv(normal(direction))}, unit_direct{unitv(direction)};
+
+    const float tilt_sin{unit_direct.y}, tilt_cos{unit_direct.x},
+        x_axis_mag{mag(direction)};
 
     std::array<sf::Vector2f, NumSegments> graph;
-    const float x_axis_mag{mag(from_ - to_)};
 
     // Transform params from 0 - 1 to 0 - lentgh of x-axis
     // thus correcting f'(0)
@@ -18,9 +21,12 @@ std::array<sf::Vector2f, NumSegments>
 
     for (int point_idx{0}; point_idx < NumSegments; ++point_idx)
     {
-        const float progress{static_cast<float>(point_idx) / (NumSegments - 1)};
-        graph[point_idx] = interpolate(progress, from_, to_)
-                           - sf::Vector2f{0.f, unit_normal.y * f_(progress)};
+        const float x{static_cast<float>(point_idx) / (NumSegments - 1)},
+            y{f_(x)};
+        graph[point_idx] = interpolate(x, from_, to_)
+                           // rotation matrix
+                           - sf::Vector2f{x * tilt_cos - y * tilt_sin,
+                                          x * tilt_sin + y * tilt_cos};
     }
 
     return graph;
