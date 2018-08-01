@@ -41,6 +41,21 @@ std::vector<std::array<sf::Vector2f, NumSegments>>
     float h{1};
     std::vector<std::array<sf::Vector2f, NumSegments>> graphs;
 
+    std::vector<sf::Vector2f> vertex_normals;
+
+    // Construct vertex normals outward of
+    for (unsigned point_idx = 1; point_idx < points_.size() - 1; ++point_idx)
+    {
+        // See notes 2018-08-01
+
+        const sf::Vector2f a{
+            unitv(points_[point_idx - 1] - points_[point_idx])},
+            b{unitv(points_[point_idx] - points_[point_idx + 1])};
+
+        vertex_normals.emplace_back(unitv(normal(a + b)));
+        std::cout << vertex_normals.back();
+    }
+
     for (unsigned point_idx = 1; point_idx < points_.size(); ++point_idx)
     {
         graphs.emplace_back(
