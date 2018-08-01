@@ -10,10 +10,8 @@ int main()
     sf::RenderWindow window(
         {350, 350}, "Draw Function Graph", sf::Style::Default, aa_8x);
 
-    const float h{1};
+    float h{1};
     const std::array<sf::Vector2f, 2> points{{{50.f, 200.f}, {50.f, 450.f}}};
-    auto graph{draw_function_graph(
-        Polynomial<3>{2.f * h, -3.f * h, h, 0.f}, points[0], points[1])};
 
     while (true)
     {
@@ -30,7 +28,18 @@ int main()
                 // sf::Vector2f mpos{static_cast<float>(event.mouseButton.x)
                 // static_cast<float>(event.mouseButton.y)};
             }
+
+            else if (event.type == sf::Event::KeyPressed
+                     && event.key.code == sf::Keyboard::Up)
+                ++h;
+
+            else if (event.type == sf::Event::KeyPressed
+                     && event.key.code == sf::Keyboard::Down)
+                --h;
         }
+
+        const auto graph{draw_function_graph(
+            Polynomial<3>{2.f * h, -3.f * h, h, 0.f}, points[0], points[1])};
 
         window.clear();
 
