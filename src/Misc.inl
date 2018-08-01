@@ -38,7 +38,7 @@ template<int NumSegments = 50>
 std::vector<std::array<sf::Vector2f, NumSegments>>
     smooth_lines(const std::vector<sf::Vector2f>& points_)
 {
-    float h{1};
+    const float h{1}, pi{3.1415927f};
     std::vector<std::array<sf::Vector2f, NumSegments>> graphs;
 
     std::vector<sf::Vector2f> vertex_normals;
@@ -48,12 +48,16 @@ std::vector<std::array<sf::Vector2f, NumSegments>>
     {
         // See notes 2018-08-01
 
-        const sf::Vector2f a{
+        const sf::Vector2f away{
             unitv(points_[point_idx - 1] - points_[point_idx])},
-            b{unitv(points_[point_idx] - points_[point_idx + 1])};
+            toward{unitv(points_[point_idx] - points_[point_idx + 1])};
 
-        vertex_normals.emplace_back(unitv(normal(a + b)));
-        std::cout << vertex_normals.back();
+        sf::Vector2f v_normal{unitv(normal(away + toward))};
+
+        if (std::acos(dot(away, v_normal)) < .5f * pi)
+            v_normal *= -1.f;
+
+        vertex_normals.emplace_back(v_normal);
     }
 
     for (unsigned point_idx = 1; point_idx < points_.size(); ++point_idx)
