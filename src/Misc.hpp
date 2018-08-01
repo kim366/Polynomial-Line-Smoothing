@@ -12,7 +12,8 @@ namespace sf
 std::ostream& operator<<(std::ostream& os_, const sf::Vector2f& vec_);
 }
 
-void draw_lines(const std::vector<sf::Vector2f>& points_,
+template<typename ContainerT>
+void draw_lines(const ContainerT& points_,
                 sf::RenderTarget& target_,
                 sf::Color color_ = sf::Color::White);
 float dot(sf::Vector2f first_, sf::Vector2f second_);

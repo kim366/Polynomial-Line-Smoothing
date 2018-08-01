@@ -24,3 +24,20 @@ std::array<sf::Vector2f, NumSegments>
 
     return graph;
 }
+
+template<typename ContainerT>
+void draw_lines(const ContainerT& points_,
+                sf::RenderTarget& target_,
+                sf::Color color_)
+{
+    for (auto point{points_.cbegin()}; point != points_.cend();)
+    {
+        auto cur_point{point};
+        if (++point != points_.cend())
+        {
+            sf::Vertex line[2]{{*cur_point, color_}, {*point, color_}};
+
+            target_.draw(line, 2, sf::Lines);
+        }
+    }
+}

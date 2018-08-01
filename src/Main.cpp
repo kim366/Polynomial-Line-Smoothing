@@ -11,7 +11,7 @@ int main()
         {350, 350}, "Draw Function Graph", sf::Style::Default, aa_8x);
 
     const float h{1};
-    sf::Vector2f points[2]{{50.f, 200.f}, {300.f, 700.f}};
+    const std::array<sf::Vector2f, 2> points{{{50.f, 200.f}, {300.f, 700.f}}};
     auto graph{draw_function_graph(
         Polynomial<3>{2.f * h, -3.f * h, h, 0.f}, points[0], points[1])};
 
@@ -34,15 +34,8 @@ int main()
 
         window.clear();
 
-        draw_lines({points[0], points[1]}, window, sf::Color::Red);
-
-        for (auto point_position : graph)
-        {
-            sf::CircleShape point{2.f};
-            point.setPosition(point_position);
-            point.setOrigin(2.f, 2.f);
-            window.draw(point);
-        }
+        draw_lines(points, window, sf::Color::Red);
+        draw_lines(graph, window);
 
         window.display();
     }

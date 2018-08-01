@@ -13,22 +13,6 @@ std::ostream& operator<<(std::ostream& os_, const sf::Vector2f& vec_)
 
 } // namespace sf
 
-void draw_lines(const std::vector<sf::Vector2f>& points_,
-                sf::RenderTarget& target_,
-                sf::Color color_)
-{
-    for (auto point{points_.cbegin()}; point != points_.cend();)
-    {
-        auto cur_point{point};
-        if (++point != points_.cend())
-        {
-            sf::Vertex line[2]{{*cur_point, color_}, {*point, color_}};
-
-            target_.draw(line, 2, sf::Lines);
-        }
-    }
-}
-
 float dot(sf::Vector2f first_, sf::Vector2f second_)
 {
     return first_.x * second_.x + first_.y * second_.y;
