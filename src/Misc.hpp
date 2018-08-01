@@ -19,7 +19,7 @@ float dot(sf::Vector2f first_, sf::Vector2f second_);
 float mag(sf::Vector2f vec_);
 sf::Vector2f unitV(sf::Vector2f vec_);
 float interpolate(float t, float a, float b);
-sf::Vector2f vinterpolate(float t, sf::Vector2f a, sf::Vector2f b);
+sf::Vector2f interpolate(float t, sf::Vector2f a, sf::Vector2f b);
 template<int NumSegments = 50>
 std::array<sf::Vector2f, NumSegments> draw_function_graph(float (*fn)(float),
                                                           sf::Vector2f from_,

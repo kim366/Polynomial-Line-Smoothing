@@ -58,7 +58,7 @@ float interpolate(float t, float a, float b)
     return (b - a) * t + a;
 }
 
-sf::Vector2f vinterpolate(float t, sf::Vector2f a, sf::Vector2f b)
+sf::Vector2f interpolate(float t, sf::Vector2f a, sf::Vector2f b)
 {
     return {interpolate(t, a.x, b.x), interpolate(t, a.y, b.y)};
 }
