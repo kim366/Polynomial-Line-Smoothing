@@ -38,6 +38,9 @@ template<int NumSegments = 50>
 std::vector<std::array<sf::Vector2f, NumSegments>>
     smooth_lines(const std::vector<sf::Vector2f>& points_)
 {
+    if (points_.size() < 3)
+        return {};
+
     const float h{1}, pi{3.1415927f};
     std::vector<std::array<sf::Vector2f, NumSegments>> graphs;
 
