@@ -46,14 +46,15 @@ std::vector<std::array<sf::Vector2f, NumSegments>>
     const auto vertex_normals{construct_vertex_normals(points_)};
     const auto slopes{compute_slopes(points_, vertex_normals)};
 
-    for (unsigned point_idx = 1; point_idx < points_.size(); ++point_idx)
+    for (unsigned point_idx{1}; point_idx < points_.size(); ++point_idx)
     {
-        //
-
-        graphs.emplace_back(
-            draw_function_graph(Polynomial<3>{2.f * h, -3.f * h, h, 0.f},
-                                points_[point_idx - 1],
-                                points_[point_idx]));
+        graphs.emplace_back(draw_function_graph(
+            Polynomial<3>{slopes[point_idx - 1] + slopes[point_idx],
+                          -2.f * slopes[point_idx - 1] - slopes[point_idx],
+                          slopes[point_idx - 1],
+                          0.f},
+            points_[point_idx - 1],
+            points_[point_idx]));
     }
 
     return graphs;

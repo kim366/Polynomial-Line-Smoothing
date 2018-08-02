@@ -79,14 +79,6 @@ std::vector<sf::Vector2f>
     vertex_normals.emplace_back(unitv(
         normal(points_[points_.size() - 1] - points_[points_.size() - 2])));
 
-    // Flip first / last normal if facing wrong way
-    for (auto idices : std::initializer_list<std::pair<unsigned, unsigned>>{
-             {0, 1}, {vertex_normals.size() - 1, vertex_normals.size() - 2}})
-        if (std::acos(dot(vertex_normals[idices.first],
-                          vertex_normals[idices.second]))
-            > .5f * pi)
-            vertex_normals[idices.first] *= -1.f;
-
     return vertex_normals;
 }
 
