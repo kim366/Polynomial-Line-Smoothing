@@ -55,8 +55,6 @@ sf::Vector2f normal(sf::Vector2f vec_)
 std::vector<sf::Vector2f>
     construct_vertex_normals(const std::vector<sf::Vector2f>& points_)
 {
-    const float pi{3.1415927f};
-
     std::vector<sf::Vector2f> vertex_normals;
     vertex_normals.reserve(points_.size());
 

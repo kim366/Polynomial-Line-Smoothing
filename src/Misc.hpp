@@ -7,6 +7,8 @@
 #include <ostream>
 #include <vector>
 
+const float pi{3.1415927f};
+
 namespace sf
 {
 std::ostream& operator<<(std::ostream& os_, const sf::Vector2f& vec_);
