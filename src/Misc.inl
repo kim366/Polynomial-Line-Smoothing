@@ -48,13 +48,20 @@ std::vector<std::array<sf::Vector2f, NumSegments>>
 
     for (unsigned point_idx{1}; point_idx < points_.size(); ++point_idx)
     {
-        graphs.emplace_back(draw_function_graph(
-            Polynomial<3>{slopes[point_idx - 1] + slopes[point_idx],
-                          -2.f * slopes[point_idx - 1] - slopes[point_idx],
-                          slopes[point_idx - 1],
-                          0.f},
-            points_[point_idx - 1],
-            points_[point_idx]));
+        float slope_begin{slopes[point_idx - 1]}, slope_end{slopes[point_idx]};
+
+        if (std::acos(
+                dot(vertex_normals[point_idx - 1], vertex_normals[point_idx]))
+            < .5f * pi)
+            slope_end *= -1.f;
+
+        graphs.emplace_back(
+            draw_function_graph(Polynomial<3>{slope_begin + slope_end,
+                                              -2.f * slope_begin - slope_end,
+                                              slope_begin,
+                                              0.f},
+                                points_[point_idx - 1],
+                                points_[point_idx]));
     }
 
     return graphs;
