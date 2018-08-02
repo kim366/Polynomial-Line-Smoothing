@@ -7,8 +7,6 @@ class Polynomial
 {
 public:
     using ParamArrT = std::array<ParamT, Order + 1>;
-    static const auto PolynOrder{Order};
-    using PolynParam = ParamT;
 
     template<typename... ParamTs>
     Polynomial(ParamTs... params_);
@@ -20,22 +18,10 @@ public:
             _params[index] = other_.getParam(index);
     }
 
-    template<typename ArrElemT, unsigned ArrSize>
-    Polynomial(std::array<ArrElemT, ArrSize>&& arr_) : _params{std::move(arr_)}
-    {
-    }
-
-    template<typename ArrElemT, unsigned ArrSize>
-    Polynomial(const std::array<ArrElemT, ArrSize>& arr_) : _params{arr_}
-    {
-    }
-
     ParamT operator()(ParamT x_) const;
 
     const auto& getParams() const { return _params; }
-    ParamT getParam(unsigned index_) const { return _params[index_]; }
 
-    void setParams(const ParamArrT& params_) { _params = params_; }
     void setParams(ParamArrT&& params_) { _params = std::move(params_); }
 
 private:
