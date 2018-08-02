@@ -42,6 +42,9 @@ std::vector<std::array<sf::Vector2f, NumSegments>>
     std::vector<std::array<sf::Vector2f, NumSegments>> graphs;
 
     std::vector<sf::Vector2f> vertex_normals;
+    vertex_normals.reserve(points_.size());
+
+    vertex_normals.emplace_back(unitv(normal(points_[1] - points_[0])));
 
     // Construct vertex normals outward of
     for (unsigned point_idx = 1; point_idx < points_.size() - 1; ++point_idx)
@@ -59,6 +62,17 @@ std::vector<std::array<sf::Vector2f, NumSegments>>
 
         vertex_normals.emplace_back(v_normal);
     }
+
+    vertex_normals.emplace_back(unitv(
+        normal(points_[points_.size() - 1] - points_[points_.size() - 2])));
+
+    // Flip first / last normal if facing wrong way
+    for (auto idices : std::initializer_list<std::pair<unsigned, unsigned>>{
+             {0, 1}, {vertex_normals.size() - 1, vertex_normals.size() - 2}})
+        if (std::acos(dot(vertex_normals[idices.first],
+                          vertex_normals[idices.second]))
+            > .5f * pi)
+            vertex_normals[idices.first] *= -1.f;
 
     for (unsigned point_idx = 1; point_idx < points_.size(); ++point_idx)
     {
