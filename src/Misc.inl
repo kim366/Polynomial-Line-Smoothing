@@ -44,7 +44,7 @@ std::vector<std::array<sf::Vector2f, NumSegments>>
     const float h{1};
     std::vector<std::array<sf::Vector2f, NumSegments>> graphs;
     const auto vertex_normals{construct_vertex_normals(points_)};
-    const auto slopes{construct_vertex_normals(points_, vertex_normals)};
+    const auto slopes{compute_slopes(points_, vertex_normals)};
 
     for (unsigned point_idx = 1; point_idx < points_.size(); ++point_idx)
     {
