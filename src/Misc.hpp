@@ -28,4 +28,6 @@ std::array<sf::Vector2f, NumSegments>
 template<int NumSegments = 50>
 std::vector<std::array<sf::Vector2f, NumSegments>>
     smooth_lines(const std::vector<sf::Vector2f>& points_);
+std::vector<sf::Vector2f>
+    construct_vertex_normals(const std::vector<sf::Vector2f>& points_);
 #include "Misc.inl"

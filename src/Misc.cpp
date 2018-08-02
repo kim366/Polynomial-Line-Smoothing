@@ -51,3 +51,43 @@ sf::Vector2f normal(sf::Vector2f vec_)
 {
     return {-vec_.y, vec_.x};
 }
+
+std::vector<sf::Vector2f>
+    construct_vertex_normals(const std::vector<sf::Vector2f>& points_)
+{
+    const float pi{3.1415927f};
+
+    std::vector<sf::Vector2f> vertex_normals;
+    vertex_normals.reserve(points_.size());
+
+    vertex_normals.emplace_back(unitv(normal(points_[1] - points_[0])));
+
+    for (unsigned point_idx = 1; point_idx < points_.size() - 1; ++point_idx)
+    {
+        // See notes 2018-08-01
+
+        const sf::Vector2f away{
+            unitv(points_[point_idx - 1] - points_[point_idx])},
+            toward{unitv(points_[point_idx] - points_[point_idx + 1])};
+
+        sf::Vector2f v_normal{unitv(normal(away + toward))};
+
+        if (std::acos(dot(away, v_normal)) < .5f * pi)
+            v_normal *= -1.f;
+
+        vertex_normals.emplace_back(v_normal);
+    }
+
+    vertex_normals.emplace_back(unitv(
+        normal(points_[points_.size() - 1] - points_[points_.size() - 2])));
+
+    // Flip first / last normal if facing wrong way
+    for (auto idices : std::initializer_list<std::pair<unsigned, unsigned>>{
+             {0, 1}, {vertex_normals.size() - 1, vertex_normals.size() - 2}})
+        if (std::acos(dot(vertex_normals[idices.first],
+                          vertex_normals[idices.second]))
+            > .5f * pi)
+            vertex_normals[idices.first] *= -1.f;
+
+    return vertex_normals;
+}
