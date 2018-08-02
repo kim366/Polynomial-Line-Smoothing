@@ -89,3 +89,25 @@ std::vector<sf::Vector2f>
 
     return vertex_normals;
 }
+
+std::vector<float>
+    compute_slopes(const std::vector<sf::Vector2f>& points_,
+                   const std::vector<sf::Vector2f>& vertex_normals_)
+{
+    std::vector<float> slopes;
+    slopes.reserve(vertex_normals_.size());
+
+    for (unsigned point_idx = 0; point_idx < points_.size() - 1; ++point_idx)
+    {
+        const float angle{
+            std::acos(dot(vertex_normals_[point_idx],
+                          unitv(points_[point_idx + 1] - points_[point_idx])))
+            - .5f * pi};
+
+        slopes.emplace_back(std::tan(angle));
+    }
+
+    slopes.emplace_back(0.f);
+
+    return slopes;
+}

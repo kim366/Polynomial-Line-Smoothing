@@ -24,12 +24,20 @@ sf::Vector2f normal(sf::Vector2f vec_);
 sf::Vector2f unitv(sf::Vector2f vec_);
 float interpolate(float t, float a, float b);
 sf::Vector2f interpolate(float t, sf::Vector2f a, sf::Vector2f b);
+
 template<int NumSegments = 50, typename PolynomialT>
 std::array<sf::Vector2f, NumSegments>
     draw_function_graph(PolynomialT f_, sf::Vector2f from_, sf::Vector2f to_);
+
 template<int NumSegments = 50>
 std::vector<std::array<sf::Vector2f, NumSegments>>
     smooth_lines(const std::vector<sf::Vector2f>& points_);
+
 std::vector<sf::Vector2f>
     construct_vertex_normals(const std::vector<sf::Vector2f>& points_);
+
+std::vector<float>
+    compute_slopes(const std::vector<sf::Vector2f>& points_,
+                   const std::vector<sf::Vector2f>& vertex_normals_);
+
 #include "Misc.inl"

@@ -44,19 +44,7 @@ std::vector<std::array<sf::Vector2f, NumSegments>>
     const float h{1};
     std::vector<std::array<sf::Vector2f, NumSegments>> graphs;
     const auto vertex_normals{construct_vertex_normals(points_)};
-    std::vector<float> slopes;
-    slopes.reserve(vertex_normals.size());
-
-    // Compute slopes
-    for (unsigned point_idx = 0; point_idx < points_.size() - 1; ++point_idx)
-    {
-        const float angle{
-            std::acos(dot(vertex_normals[point_idx],
-                          unitv(points_[point_idx + 1] - points_[point_idx])))
-            - .5f * pi};
-
-        slopes.emplace_back(std::tan(angle));
-    }
+    const auto slopes{construct_vertex_normals(points_, vertex_normals)};
 
     for (unsigned point_idx = 1; point_idx < points_.size(); ++point_idx)
     {
