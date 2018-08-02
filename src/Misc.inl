@@ -41,18 +41,48 @@ std::vector<std::array<sf::Vector2f, NumSegments>>
     if (points_.size() < 3)
         return {};
 
-    const float h{1};
     std::vector<std::array<sf::Vector2f, NumSegments>> graphs;
     const auto vertex_normals{construct_vertex_normals(points_)};
     const auto slopes{compute_slopes(points_, vertex_normals)};
 
-    for (unsigned point_idx{1}; point_idx < points_.size(); ++point_idx)
+    enum Direction : bool
     {
-        float slope_begin{slopes[point_idx - 1]}, slope_end{slopes[point_idx]};
+        Left,
+        Right
+    };
 
-        if (std::acos(
-                dot(vertex_normals[point_idx - 1], vertex_normals[point_idx]))
-            < .5f * pi)
+    std::vector<Direction> directions{points_.size()};
+
+    for (unsigned point_idx{1}; point_idx < points_.size() - 1; ++point_idx)
+    {
+        const sf::Vector2f to_point_unit{
+            unitv(points_[point_idx] - points_[point_idx - 1])},
+            from_point_unit{unitv(points_[point_idx + 1] - points_[point_idx])};
+
+        float angle_left{
+            std::acos(dot(normal(to_point_unit), from_point_unit))},
+            angle_right{
+                std::acos(dot(normal(to_point_unit * -1.f), from_point_unit))};
+
+        // Why `>` ???
+        directions[point_idx] = angle_left > angle_right ? Left : Right;
+    }
+
+    directions[0] = directions[1];
+    directions[directions.size() - 1] = directions[directions.size() - 2];
+
+    for (unsigned point_idx{0}; point_idx < points_.size() - 1; ++point_idx)
+    {
+        float slope_begin{slopes[point_idx]}, slope_end{-slopes[point_idx + 1]};
+
+        if (directions[point_idx] == Left)
+        {
+            slope_begin *= -1.f;
+            slope_end *= -1.f;
+        }
+
+        if (point_idx < directions.size() - 1
+            && directions[point_idx] != directions[point_idx + 1])
             slope_end *= -1.f;
 
         graphs.emplace_back(
@@ -60,8 +90,8 @@ std::vector<std::array<sf::Vector2f, NumSegments>>
                                               -2.f * slope_begin - slope_end,
                                               slope_begin,
                                               0.f},
-                                points_[point_idx - 1],
-                                points_[point_idx]));
+                                points_[point_idx],
+                                points_[point_idx + 1]));
     }
 
     return graphs;
