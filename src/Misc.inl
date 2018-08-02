@@ -49,7 +49,7 @@ std::vector<std::array<sf::Vector2f, NumSegments>>
 
     vertex_normals.emplace_back(unitv(normal(points_[1] - points_[0])));
 
-    // Construct vertex normals outward of
+    // Construct vertex normals outward
     for (unsigned point_idx = 1; point_idx < points_.size() - 1; ++point_idx)
     {
         // See notes 2018-08-01
