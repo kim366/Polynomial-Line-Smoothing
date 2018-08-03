@@ -85,13 +85,13 @@ std::vector<std::array<sf::Vector2f, NumSegments>>
             && directions[point_idx] != directions[point_idx + 1])
             slope_end *= -1.f;
 
-        graphs.emplace_back(
-            draw_function_graph(Polynomial<3>{slope_begin + slope_end,
-                                              -2.f * slope_begin - slope_end,
-                                              slope_begin,
-                                              0.f},
-                                points_[point_idx],
-                                points_[point_idx + 1]));
+        graphs.emplace_back(draw_function_graph<NumSegments>(
+            Polynomial<3>{slope_begin + slope_end,
+                          -2.f * slope_begin - slope_end,
+                          slope_begin,
+                          0.f},
+            points_[point_idx],
+            points_[point_idx + 1]));
     }
 
     return graphs;
